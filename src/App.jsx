@@ -9,7 +9,6 @@ const T = {
   sans: "'Trebuchet MS', 'Gill Sans', sans-serif", display: "Georgia, 'Times New Roman', serif",
 };
 
-// ─── PREDEFINED DEMO ANSWERS ─────────────────────────────────────────────
 const demoResponses = [
   {
     question: "I'm Ace with Afiwi Capital — I keep it short. Are you a real estate investor, a business owner, or a broker bringing a deal?",
@@ -63,7 +62,6 @@ const demoResponses = [
   }
 ];
 
-// ─── CHAT PANEL ──────────────────────────────────────────────────────────
 function ChatPanel() {
   const [messages, setMessages] = useState([{
     role: "assistant",
@@ -80,14 +78,13 @@ function ChatPanel() {
     setMessages(next);
     setInput("");
 
-    // Find next demo response
     if (step < demoResponses.length) {
       const replyText = demoResponses[step].reply;
       setTimeout(() => {
         const assistantMsg = { role: "assistant", content: replyText };
-        setMessages([...next, assistantMsg]);
+        const newMessages = [...next, assistantMsg];
+        setMessages(newMessages);
 
-        // Check if profile is embedded
         if (replyText.includes("<DEAL_PROFILE>")) {
           const match = replyText.match(/<DEAL_PROFILE>([\s\S]*?)<\/DEAL_PROFILE>/);
           if (match) setProfile(match[1]);
@@ -152,7 +149,6 @@ function ChatPanel() {
   );
 }
 
-// ─── MAIN APP ─────────────────────────────────────────────────────────────────
 export default function App() {
   const [tab, setTab] = useState("qualifier");
 
